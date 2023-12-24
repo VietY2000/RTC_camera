@@ -24,6 +24,8 @@
 |         |      |         |
 +---------+      +---------+
 
+
+
 */
 
 static int g_exit;
@@ -71,13 +73,6 @@ static int __init_sys_vmem(void)
 	cfg.stream[0].module[1].outbuf.shared = share;
 	cfg.stream[0].module[1].outbuf.num = 1;
 	cfg.stream[0].module[1].outbuf.size = 0; // default size
-
-	// cfg.stream[0].module[2].type = RTS_AV_ID_MJPGENC;
-	// cfg.stream[0].module[2].cnt = 1;
-	// cfg.stream[0].module[2].outbuf.setted = 1;
-	// cfg.stream[0].module[2].outbuf.shared = share;
-	// cfg.stream[0].module[2].outbuf.num = 1;
-	// cfg.stream[0].module[2].outbuf.size = 0; // default size
 
 	ret = rts_av_sys_vmem_set_conf(&cfg);
 	if (ret) {
@@ -148,7 +143,6 @@ static int refresh_h264_ctrl(struct rts_h264_ctrl *ctrl)
 	return ret;
 }
 
-
 static void *thread_audio(void* arg){
 	int ret;
 	int capture = -1;
@@ -166,7 +160,6 @@ static void *thread_audio(void* arg){
 
 	rts_set_log_mask(RTS_LOG_MASK_CONS);
 
-	// ret = rts_av_init();
 	if (RTS_IS_ERR(ret)) {
 		RTS_ERR("rts_av_init fail\n");
 		goto exit;
@@ -264,14 +257,6 @@ static void *thread_audio(void* arg){
 
 exit:
 
-	// if(file_alaw.file){
-	// 	RTS_SAFE_RELEASE(file_alaw.file, fclose);
-	// 	printf("Close file alaw\n");
-	// }
-	// else{
-	// 	printf("none file alaw to close\n");
-	// }
-
 	if (file_alaw.channel >= 0) {
 		rts_av_destroy_chn(file_alaw.channel);
 		file_alaw.channel = -1;
@@ -283,10 +268,6 @@ exit:
 		printf("destroy channel capture\n");
 	}
 
-	// ret = rts_av_release();
-	if(!ret){
-		printf("release audio thread\n");
-	}
 	return NULL;
 }
 
@@ -520,18 +501,6 @@ exit:
 		RTS_SAFE_RELEASE(ctrl, rts_av_release_h264_ctrl);
 		printf("release ctrl\n");
 	}
-	printf("1\n");
-	// if(file_h264.file){
-	// 	fclose(file_h264.file);
-	// 	printf("close file h264\n");
-	// }
-	// else{
-	// 	printf("none file h264 to close\n");
-	// }
-	
-	// if(file_jpg.file){
-	// 	RTS_SAFE_RELEASE(file_jpg.file, fclose);
-	// }
 	
 	if (vin >= 0) {
 		rts_av_destroy_chn(vin);
