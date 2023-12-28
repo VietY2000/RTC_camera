@@ -9,6 +9,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <rtsavapi.h>
+#include <pthread.h>
 
 typedef enum {
     H264,
@@ -23,6 +24,7 @@ typedef struct {
 	char path[64];
 	uint8_t channel;
     format fm;
+	pthread_mutex_t mt;
 } save_struct;
 
 void func_creat_new_folder(save_struct *file_save, time_t time);
