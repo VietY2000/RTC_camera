@@ -109,7 +109,7 @@ void func_save(save_struct *file_save, time_t *start, time_t now, uint32_t time_
 		new_file_jpg = 1;
 		printf("<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>\n");
 	}
-
+	pthread_mutex_lock(&file_save->mt);
 
 	if(file_save->fm == H264) {
 
@@ -175,4 +175,5 @@ void func_save(save_struct *file_save, time_t *start, time_t now, uint32_t time_
 		buffer = NULL;
 		fclose(file_save->file);
 	}
+	pthread_mutex_unlock(&file_save->mt);
 }
